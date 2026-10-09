@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <main class="login-container">
+        <section class="login-card">
+            <p class="eyebrow">Simple Login</p>
+            <h1>Đăng nhập</h1>
+            <p class="description">Đăng nhập vào hệ thống</p>
+
+            <form id="login-form">
+                <div class="field">
+                    <label for="username">Username</label>
+                    <input
+                        id="username"
+                        name="username"
+                        type="text"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="password">Password</label>
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button class="btn primary" type="submit">
+                    Đăng nhập
+                </button>
+
+                <p id="message" class="message"></p>
+            </form>
+        </section>
+    </main>
+
+    <script src="js/login.js"></script>
+</body>
+</html>
