@@ -1,0 +1,29 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www/html
+    environment:
+      DB_HOST: db
+      DB_PASS: root
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: mysql:8.4
+    # LAB-ONLY: cho phép INTO OUTFILE ghi vào /shared để minh hoạ SQLi -> RCE.
+    # /shared bind tới ./vuln/uploads trên host -> web phục vụ tại /vuln/uploads.
+    # KHÔNG dùng cấu hình này ngoài lab.
+    command: ["--secure-file-priv=/shared"]
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./database.sql:/docker-entrypoint-initdb.d/1_database.sql:ro
+      - ./database_basic.sql:/docker-entrypoint-initdb.d/2_database_basic.sql:ro
+      - ./vuln/uploads:/shared
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 3s
+      retries: 30
