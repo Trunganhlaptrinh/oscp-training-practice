@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Windows HTA Pentest Lab</title>
+
+    <HTA:APPLICATION
+        ID="PentestLab"
+        APPLICATIONNAME="PentestLab"
+        BORDER="thin"
+        CAPTION="yes"
+        SHOWINTASKBAR="yes"
+        SINGLEINSTANCE="yes"
+        WINDOWSTATE="normal"
+    />
+
+    <style>
+        body {
+            background: #101820;
+            color: #00ff99;
+            font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+            padding: 24px;
+        }
+
+        button {
+            padding: 10px 16px;
+            margin: 5px;
+            font-family: inherit;
+        }
+
+        #output {
+            background: #000;
+            color: #00ff99;
+            padding: 15px;
+            white-space: pre-wrap;
+            font-family: Consolas, monospace;
+        }
+    </style>
+
+    <script language="VBScript">
+        Sub ShowInfo()
+            Dim shell, env, result
+
+            Set shell = CreateObject("WScript.Shell")
+            Set env = shell.Environment("PROCESS")
+
+            result = "May tinh: " & env("COMPUTERNAME") & vbCrLf & _
+                     "Nguoi dung: " & env("USERNAME") & vbCrLf & _
+                     "He dieu hanh: " & env("OS")
+
+            document.getElementById("output").innerText = result
+        End Sub
+
+        Sub OpenCMD()
+            Dim shell
+            Set shell = CreateObject("WScript.Shell")
+            shell.Run "cmd.exe", 1, False
+        End Sub
+    </script>
+</head>
+
+<body>
+    <h2>Windows HTA Pentest Lab</h2>
+    <p>Lab thuc hanh HTA - chi su dung trong moi truong duoc phep.</p>
+
+    <button onclick="ShowInfo">Xem thong tin moi truong</button>
+    <button onclick="OpenCMD">Mo CMD</button>
+
+    <h3>Ket qua</h3>
+    <div id="output">Nhan nut de bat dau...</div>
+</body>
+</html>
